@@ -5,11 +5,57 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.pipeline import Pipeline
+from nltk.corpus import stopwords
+from nltk.probability import FreqDist
+import nltk
+import string
 
 df = pd.read_csv("clickbait_data.csv", header=0)
 
 X = df['headline']
 y = df['clickbait']
+
+train_X, test_X, train_y, test_y = train_test_split(X, y, test_size=0.7, random_state=0)
+
+train_X = train_X.apply(lambda x: x.split()) # break into words (tokenise)
+test_X = test_X.apply(lambda x: x.split())
+
+train_X = train_X.apply(lambda x: [word.lower() for word in x]) # make lower case
+test_X = test_X.apply(lambda x: [word.lower() for word in x])
+
+def remove_punctuation(row):
+    new_row = []
+    for r in row:
+        for j in string.punctuation:
+            r = r.replace(j, '')
+        new_row.append(r)
+    return new_row
+
+train_X = train_X.apply(remove_punctuation)
+test_X = test_X.apply(remove_punctuation)
+
+train_X = train_X.apply(lambda x: [''.join([i for i in word if not i.isdigit()]) for word in x]) # hahahahhahahahahahha
+test_x = test_X.apply(lambda x: [''.join([i for i in word if not i.isdigit()]) for word in x])   # removes digits from text somehow
+
+train_X = train_X.apply(lambda x: [word for word in x if word not in stopwords.words('english')]) # Remove stopwords
+test_X = test_X.apply(lambda x: [word for word in x if word not in stopwords.words('english')])
+
+train_X = train_X.apply(lambda x: [word.strip() for word in x if word != '']) # strip whitespace
+test_X = test_X.apply(lambda x: [word.strip() for word in x if word != ''])
+
+# train_X = train_X.apply(lambda x: [word for word in x if word != ''])
+# test_X = test_X.apply(lambda x: [word for word in x if word != ''])
+lem = nltk.stem.WordNetLemmatizer()
+train_X = train_X.apply(lambda x: [lem.lemmatize(word) for word in x]) # lemmatise the words
+test_X = test_X.apply(lambda x: [lem.lemmatize(word) for word in x])
+
+print(train_X.head)
+# def make_lower(row):
+#     return [word.lower() for word in row]
+
+
+
+
 
 count_vect = CountVectorizer()
 
