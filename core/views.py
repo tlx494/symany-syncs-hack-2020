@@ -24,13 +24,13 @@ from .serializer import DocumentSerializer
 
 class DocumentView(APIView):
     def get(self, request, *args, **kargs):
-        return Response('hello')
+        return Response('lol hi')
 
     def post(self, request, *args, **kargs):
         serializer = DocumentSerializer(data=request.data)
 
         if serializer.is_valid():
-            return Response(serializer)
+            return Response(serializer.data)
 
         return Response(serializer.errors)
         

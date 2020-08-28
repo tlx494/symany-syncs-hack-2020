@@ -8,5 +8,5 @@ class DocumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Document
         fields = (
-            'content'
+            'content',
         )
