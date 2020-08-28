@@ -12,7 +12,7 @@ Hasn't really been implemented, just returns "lol hi"
 Body will look like this:
 {
     "title" : "Huge news as universe ending threat approaches planet Earth!!!"
-    "link" : "www.link.com" # only accepts valid links
+    "link" : "https://www.link.com" # only accepts valid links
 }
 
 Title is mandatory, Link is optional. Parsed title will be run through the model charlie made. Parsed link does nothing currently.
