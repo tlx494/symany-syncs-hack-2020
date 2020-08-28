@@ -80,8 +80,13 @@ test_eg = ['Coronavirus: NSW records 13 new cases of COVID-19', 'Try this out an
 # X_new_counts = count_vect.transform(test_eg)
 # X_new_tfidf = tfidf_transformer.transform(X_new_counts)
 
-prediction = text_clf.predict(test_eg)
-print(prediction)
+def predictor(content=test_eg):
+
+    prediction = text_clf.predict(content)
+    
+    return prediction
+
+predictor()
 #scores = cross_val_score(text_clf, X, y, cv=10)
 #print(scores)
 #print(text_clf.score(X_test, y_test))
