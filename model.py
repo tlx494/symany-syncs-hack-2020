@@ -26,4 +26,3 @@ X_new_tfidf = tfidf_transformer.transform(X_new_counts)
 
 prediction = clf.predict(X_new_tfidf)
 print(prediction)
-git s
