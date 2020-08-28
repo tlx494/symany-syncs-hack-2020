@@ -4,5 +4,6 @@ from django.db import models
 
 class Document(models.Model):
     document_id = models.AutoField(primary_key=True)
-    content = models.TextField(blank=False)
+    title = models.TextField(blank=True)
+    link = models.TextField(blank=False)
     
