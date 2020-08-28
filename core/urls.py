@@ -6,5 +6,6 @@ from django.urls import path
 from core import views
 
 urlpatterns = [
+    url(r'^document$', views.DocumentView.as_view(), name='document_view'),
     path('', admin.site.urls),
 ]

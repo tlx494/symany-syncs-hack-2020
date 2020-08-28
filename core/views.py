@@ -23,9 +23,15 @@ from .serializer import DocumentSerializer
 # Create your views here.
 
 class DocumentView(APIView):
-    def post(self, request, created=None, *args, **kargs):
-        serializer = DocumentSerializer(data=request.data)
-        self.created = created or datetime.now()
+    def get(self, request, *args, **kargs):
+        return Response('hello')
 
+    def post(self, request, *args, **kargs):
+        serializer = DocumentSerializer(data=request.data)
+
+        if serializer.is_valid():
+            return Response(serializer)
+
+        return Response(serializer.errors)
         
 
