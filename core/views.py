@@ -18,7 +18,7 @@ from rest_framework.views import APIView
 # Internal Imports
 from .models import Document
 from .serializer import DocumentSerializer
-import clickbait_model
+from clickbait_model import predictor
 
 # Create your views here.
 
@@ -30,7 +30,8 @@ class DocumentView(APIView):
         serializer = DocumentSerializer(data=request.data)
         if serializer.is_valid():
             data = serializer.data
-            title = data['title']
+            title = [data['title']]
+            print(predictor(title))
             if data['link']:
                 '''
                 if link is parsed - scrape the link
