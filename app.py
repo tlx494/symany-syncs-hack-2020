@@ -33,13 +33,8 @@ def check_post():
         if link is parsed - scrape the link
         '''
         pass
-<<<<<<< HEAD
     
     if predictor(pd.Series(title)) == 1:
-=======
-
-    if predictor(title) == 1:
->>>>>>> c6c862469c1b240d8a27f169ee71f2d23051d638
         print('Clickbait:', title)
         title_warning = 'Evidence supports this being a clickbait title'
         title_is_dodgy = True
