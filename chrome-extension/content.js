@@ -69,7 +69,7 @@ const searchForArticles = async () => {
                 console.log('Could not verify post');
             }
 
-            if (!(verified['domain_is_dodgy'] || verified['title_is_dodgy'])) { // invert this later
+            if (verified['domain_is_dodgy'] || verified['title_is_dodgy']) { // invert this later
                 postWindowChild.classList.add('dodgy');
                 let alertDiv = document.createElement('div');
                 let alertDiv2 = document.createElement('div');
