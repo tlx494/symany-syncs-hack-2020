@@ -43,7 +43,9 @@ def check_post():
 
     return jsonify(
         is_dodgy=is_dodgy,
-        warning_msg=warning_msg
+        warning_msg=warning_msg,
+        title_warning=title_warning,
+        title_is_dodgy=title_is_dodgy
     )
 
 
