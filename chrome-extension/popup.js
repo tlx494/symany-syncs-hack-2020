@@ -1,15 +1,24 @@
-var ss = document.getElementById("customSwitch1");
+// var ss = document.getElementById("customSwitch1");
 
-(ss).click(function () {
-  if ((ss).prop("checked")) {
-    console.log('is checked');
-    chrome.runtime.sendMessage({ isOn: "true" }, function (response) {
-      console.log(response.farewell);
-    });
-  }
-  else {
-    chrome.runtime.sendMessage({ isOn: "false" }, function (response) {
-      console.log(response.state);
-    });
+// ($ss).click(function() {
+//   if(($ss).prop("checked")){
+//     chrome.runtime.sendMessage({isOn: "true"}, function(response) {
+//       console.log(response.farewell);
+//     });
+//   }
+//   else{
+//     chrome.runtime.sendMessage({isOn: "false"}, function(response) {
+//       console.log(response.state);
+//     });
+//   }
+// });
+console.log("hello");
+var checkbox = document.querySelector("input[name=checkbox]");
+
+checkbox.addEventListener('change', function () {
+  if (this.checked) {
+    console.log("hello");
+  } else {
+    console.log("hebyllo");
   }
 });
