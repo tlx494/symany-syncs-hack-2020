@@ -41,10 +41,10 @@ def check_post():
         '''
         pass
 
-    if predictor(pd.Series(title)) == 1:
-        print('Clickbait:', title)
-        title_warning = 'Evidence supports this being a clickbait title'
-        title_is_dodgy = True
+    # if predictor(pd.Series(title)) == 1:
+    #     print('Clickbait:', title)
+    #     title_warning = 'Evidence supports this being a clickbait title'
+    #     title_is_dodgy = True
 
     return jsonify(
         is_dodgy=is_dodgy,

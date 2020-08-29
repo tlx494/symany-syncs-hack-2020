@@ -57,6 +57,7 @@ const searchForArticles = async () => {
                 'postWindowRef': postWindow
             }
 
+            console.log(headline, link);
             let verified = await verifyPost(headline, link);
 
             if (verified) { // invert this later
