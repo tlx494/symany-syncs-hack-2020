@@ -22,6 +22,8 @@ def check_post():
 
     title = request.json['title']
     link = request.json['link']
+
+    print('title:', title, 'link:', link)
     # print(predictor(title))
 
     if link:
@@ -33,7 +35,7 @@ def check_post():
         if link is parsed - scrape the link
         '''
         pass
-    
+
     if predictor(pd.Series(title)) == 1:
         print('Clickbait:', title)
         title_warning = 'Evidence supports this being a clickbait title'
@@ -41,10 +43,12 @@ def check_post():
 
     return jsonify(
         is_dodgy=is_dodgy,
-        warning_msg=warning_msg
+        warning_msg=warning_msg,
+        title_warning=title_warning,
+        title_is_dodgy=title_is_dodgy
     )
 
 
 # run the application
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80, debug=True)
+    app.run(host='0.0.0.0', port=80)

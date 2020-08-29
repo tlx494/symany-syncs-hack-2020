@@ -7,5 +7,22 @@
     "browser_action": {
         "default_popup": "popup.html",
         "default_icon": "icon.png"
-    }
+    },
+<<<<<<< HEAD
+
+=======
+>>>>>>> e0e7177ea14529e19701c06cdb87004db74fedbb
+    "content_scripts": [
+        {
+            "css": [
+                "stylesheet.css"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "matches": [
+                "https://facebook.com/*"
+            ]
+        }
+    ]
 }

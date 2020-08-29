@@ -3,10 +3,10 @@ import re
 
 def is_blacklisted(url):
     domain = get_domain_from_url(url)
-    with open('blacklist.txt', 'r') as f:
-        for line in f:
-            if line.rstrip() == domain:
-                return True
+    f = open('blacklist.txt', 'r')
+    for line in f:
+        if line.rstrip() == domain:
+            return True
     return False
 
 
