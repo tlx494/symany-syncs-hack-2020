@@ -3,18 +3,23 @@ from blacklist_checker import Blacklister
 import json
 # from clickbait_model import predictor
 import pandas as pd
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 blacklister = Blacklister()
 
 
 @app.route('/')
+@cross_origin()
 def hello():
     return 'API for chrome extension'
 
 
 @app.route('/check-post', methods=['POST'])
+@cross_origin()
 def check_post():
 
     is_dodgy = False
