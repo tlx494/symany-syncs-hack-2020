@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from blacklist_checker import Blacklister
+import json
 # from clickbait_model import predictor
 import pandas as pd
 
@@ -22,11 +23,7 @@ def check_post():
     title_warning = ''
     title_is_dodgy = False
 
-    print('request data', request.data)
-    print('request form', request.form.get('title'))
-
-    data = request.get_json()
-    print(data)
+    data = json.loads(request.data.decode('utf-8'))
 
     title = data['title']
     link = data['link']
