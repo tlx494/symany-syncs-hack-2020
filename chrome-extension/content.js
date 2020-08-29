@@ -28,18 +28,14 @@ const verifyPost = async (title, link) => {
 
     if (response.ok) {
         let data = await response.json();
-        console.log('got a good response');
-        console.log(data);
+        return data;
     } else {
-        console.log('got a bad response');
+        console.log('Got a bad response from the server:');
         console.log(response);
-        console.log(response.json());
+        return null;
     }
 
 }
-
-// verifyPost('This is a title', 'https://dodgywebsite.com');
-
 
 const searchForArticles = async () => {
     if (!page_loaded) {
@@ -61,8 +57,11 @@ const searchForArticles = async () => {
 
             // console.log(headline, link);
             let verified = await verifyPost(headline, link);
+            if (verified == null) {
+                console.log('Could not verify post');
+            }
 
-            if (verified) { // invert this later
+            if (!(verified['domain_is_dodgy'] || verified['title_is_dodgy'])) { // invert this later
                 postWindow.classList.add('dodgy');
             }
 

@@ -22,11 +22,11 @@ def hello():
 @cross_origin()
 def check_post():
 
-    is_dodgy = False
+    domain_is_dodgy = False
     warning_msg = ''
 
-    title_warning = ''
     title_is_dodgy = False
+    title_warning = ''
 
     data = json.loads(request.data.decode('utf-8'))
 
@@ -40,7 +40,7 @@ def check_post():
         if blacklister.is_blacklisted(link):
             print('Blacklisted:', link)
             warning_msg = 'This source is known for producing fake news'
-            is_dodgy = True
+            domain_is_dodgy = True
         '''
         if link is parsed - scrape the link
         '''
@@ -52,7 +52,7 @@ def check_post():
     #     title_is_dodgy = True
 
     return jsonify(
-        is_dodgy=is_dodgy,
+        domain_is_dodgy=domain_is_dodgy,
         warning_msg=warning_msg,
         title_warning=title_warning,
         title_is_dodgy=title_is_dodgy
