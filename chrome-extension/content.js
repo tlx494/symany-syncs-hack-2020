@@ -11,7 +11,7 @@ window.onload = function () {
 
 const verifyPost = async (title, link) => {
 
-    let url = 'http://35.244.79.248/check-post'
+    let url = 'https://symanyapi.gq/check-post'
     let options = {
         method: 'POST',
         mode: 'no-cors',
