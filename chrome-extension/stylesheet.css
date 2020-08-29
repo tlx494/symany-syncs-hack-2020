@@ -93,17 +93,17 @@ body {
 .button1 {
     z-index: 99999;
     position: absolute;
-    top: 325;
+    top: 325px;
     font-family: 'Trebuchet MS';
     font-size: 16px;
     padding: 20px;
     left: 100px;
 }
 
-.button1 {
+.button2 {
     z-index: 99999;
     position: absolute;
-    top: 325;
+    top: 325px;
     font-family: 'Trebuchet MS';
     font-size: 16px;
     padding: 20px;
