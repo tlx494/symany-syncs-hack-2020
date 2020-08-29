@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from blacklist_checker import Blacklister
-from clickbait_model import predictor
+# from clickbait_model import predictor
 import pandas as pd
 
 app = Flask(__name__)
