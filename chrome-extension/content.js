@@ -75,6 +75,8 @@ const searchForArticles = async () => {
                 let alertDiv2 = document.createElement('div');
 
                 let button1 = document.createElement('button');
+                let button2 = document.createElement('button');
+
                 button1.setAttribute('type', 'button');
                 button1.classList.add('btn', 'btn-primary', 'button1');
                 button1.innerHTML = 'Search Online';
