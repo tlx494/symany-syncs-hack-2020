@@ -36,10 +36,10 @@ def check_post():
     link = data['link']
 
     link = urllib.parse.unquote(link)
-    re.sub(r'https://l.facebook.com/l.php?u=', '', link)
-    re.sub(r'?fbclid.*', '', link)
+    link = re.sub('https:\/\/l\.facebook\.com\/l\.php\?u=', '', link)
+    link = re.sub('\?fbclid.*', '', link)
 
-    print('title:', title, 'link:', link)
+    print('Checking Title:', title, '\nLink:', link)
 
     if link:
         if blacklister.is_blacklisted(link):
@@ -51,10 +51,10 @@ def check_post():
         '''
         pass
 
-    # if predictor(pd.Series(title)) == 1:
-    #     print('Clickbait:', title)
-    #     title_warning = 'Evidence supports this being a clickbait title'
-    #     title_is_dodgy = True
+        # if predictor(pd.Series(title)) == 1:
+        #     print('Clickbait:', title)
+        #     title_warning = 'Evidence supports this being a clickbait title'
+        #     title_is_dodgy = True
 
     return jsonify(
         domain_is_dodgy=domain_is_dodgy,
