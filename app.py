@@ -4,6 +4,8 @@ import json
 # from clickbait_model import predictor
 import pandas as pd
 from flask_cors import CORS, cross_origin
+import urllib.parse
+import re
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -33,8 +35,11 @@ def check_post():
     title = data['title']
     link = data['link']
 
+    link = urllib.parse.unquote(link)
+    re.sub(r'https://l.facebook.com/l.php?u=', '', link)
+    re.sub(r'?fbclid.*', '', link)
+
     print('title:', title, 'link:', link)
-    # print(predictor(title))
 
     if link:
         if blacklister.is_blacklisted(link):
