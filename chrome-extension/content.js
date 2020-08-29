@@ -11,7 +11,7 @@ window.onload = function () {
 
 const verifyPost = async (title, link) => {
 
-    let url = 'http://35.244.79.248/check-post'
+    let url = 'https://35.244.79.248/check-post'
     let options = {
         method: 'POST',
         mode: 'no-cors',
@@ -48,13 +48,21 @@ const searchForArticles = async () => {
     for (let i = 0; i < postLink.length; i++) {
         let postWindow = postLink[i].parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
         let headline = postLink[i].getAttribute('aria-label');
+        let link = postLink[i].getAttribute('href');
 
         if (!(headline in posts)) {
             console.log(`Adding to list of known posts - ${headline}`);
             posts[headline] = {
-                'link': postLink[i].getAttribute('href'),
+                'link': link,
                 'postWindowRef': postWindow
             }
+
+            let verified = await verifyPost(headline, link);
+
+            if (verified) { // invert this later
+                postWindow.classList.add('dodgy');
+            }
+
             console.log('Updated posts:')
             console.log(posts);
         }
