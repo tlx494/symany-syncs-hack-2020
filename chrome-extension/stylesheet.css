@@ -44,6 +44,68 @@ body {
 }
 
 .dodgy {
-    box-shadow: 0 0 40px 20px #fcba03;
+    background-color: rgb(255, 81, 81);
+    opacity: 0.3;
 }
 
+.alert-popup {
+    z-index: 99998;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding-top: 200px;
+    font-family: 'Trebuchet MS';
+    font-size: 50px;
+    font-weight: bold;
+    margin: 0 auto;
+    color: rgb(187, 0, 0);
+}
+
+.alert-popup-small {
+    z-index: 99998;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding-top: 275px;
+    font-family: 'Trebuchet MS';
+    font-size: 20px;
+    margin: 0 auto;
+    color: rgb(21, 21, 21);
+}
+
+.alert-background {
+    z-index: 99997;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #181818aa;
+    opacity: 0.7;
+}
+
+.button1 {
+    z-index: 99999;
+    position: absolute;
+    top: 325;
+    font-family: 'Trebuchet MS';
+    font-size: 16px;
+    padding: 20px;
+    left: 100px;
+}
+
+.button1 {
+    z-index: 99999;
+    position: absolute;
+    top: 325;
+    font-family: 'Trebuchet MS';
+    font-size: 16px;
+    padding: 20px;
+    right: 100px;
+}

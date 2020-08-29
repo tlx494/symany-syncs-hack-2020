@@ -3,7 +3,10 @@
     "name": "Symany",
     "version": "1.0",
     "description": "An extension to determine fake news on Facebook!",
-    "permissions": [],
+    "permissions": [
+        "storage",
+        "contextMenus"
+    ],
     "browser_action": {
         "default_popup": "popup.html",
         "default_icon": "icon.png"
