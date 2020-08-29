@@ -23,7 +23,7 @@ def check_post():
     title_is_dodgy = False
 
     print('request data', request.data)
-    print('request form', request.form)
+    print('request form', request.form.get('title'))
 
     data = request.get_json()
     print(data)
