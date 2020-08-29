@@ -17,7 +17,8 @@
                 "content.js"
             ],
             "matches": [
-                "https://facebook.com/*"
+                "*://facebook.com/*",
+                "*://www.facebook.com/*"
             ]
         }
     ]

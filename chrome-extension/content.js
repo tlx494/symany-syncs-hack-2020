@@ -1,8 +1,17 @@
 const regex = '<a href="(.*?)".*?aria-label="([^"]*?)".*?target=".*?".*?data-lynx-uri=".*?">';
 
+let page_loaded = false;
+
+let posts = {};
+
+window.onload = function () {
+    page_loaded = true;
+    console.log('Starting Symany...');
+}
+
 const verifyPost = async (title, link) => {
 
-    let url = 'http://35.244.79.248/check-post'
+    let url = 'https://35.244.79.248/check-post'
     let options = {
         method: 'POST',
         mode: 'no-cors',
@@ -27,12 +36,39 @@ const verifyPost = async (title, link) => {
 
 }
 
-
 // verifyPost('This is a title', 'https://dodgywebsite.com');
 
 
 const searchForArticles = async () => {
-    // let posts = document.querySelectorAll('userContentWrapper')
-    document.querySelectorAll('div.userContentWrapper > div > div > div.data-testid="post_message" div > > div > span > div > div > a')
-    document.querySelectorAll('a[href][aria-label][target]');
+    if (!page_loaded) {
+        return;
+    }
+    let postLink = document.querySelectorAll('div.userContentWrapper > div > div > div > div > div > div > div > div > span > div > a[aria-label]');
+
+    for (let i = 0; i < postLink.length; i++) {
+        let postWindow = postLink[i].parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+        let headline = postLink[i].getAttribute('aria-label');
+        let link = postLink[i].getAttribute('href');
+
+        if (!(headline in posts)) {
+            console.log(`Adding to list of known posts - ${headline}`);
+            posts[headline] = {
+                'link': link,
+                'postWindowRef': postWindow
+            }
+
+            let verified = await verifyPost(headline, link);
+
+            if (verified) { // invert this later
+                postWindow.classList.add('dodgy');
+            }
+
+            console.log('Updated posts:')
+            console.log(posts);
+        }
+    }
 }
+
+window.setInterval(function () {
+    searchForArticles();
+}, 1000);
