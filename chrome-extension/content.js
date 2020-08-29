@@ -31,7 +31,7 @@ const verifyPost = async (title, link) => {
         let data = await response.json();
 
         console.log(data);
-        // do something with data
+        // do something here
     }
 
 }
