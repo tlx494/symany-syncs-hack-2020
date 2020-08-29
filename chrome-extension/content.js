@@ -109,6 +109,21 @@ const searchForArticles = async () => {
                 postWindow.appendChild(alertDiv2);
                 postWindow.appendChild(button1);
                 postWindow.appendChild(button2);
+
+                button1.addEventListener('click', function () {
+                    var win = window.open(`https://www.google.com/search?q=${encodeURI(headline)}`, '_blank');
+                    win.focus();
+                });
+
+                button2.addEventListener('click', function () {
+                    alertDiv.style.display = 'none';
+                    alertDiv2.style.display = 'none';
+                    button1.style.display = 'none';
+                    button2.style.display = 'none';
+                    postWindowChild.classList.remove('dodgy');
+                });
+
+
             }
 
             console.log('Updated posts:')
@@ -116,6 +131,7 @@ const searchForArticles = async () => {
         }
     }
 }
+
 
 window.setInterval(function () {
     searchForArticles();

@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from blacklist_checker import Blacklister
 import json
-# from clickbait_model import predictor
+from clickbait_model import predictor
 import pandas as pd
 from flask_cors import CORS, cross_origin
 import urllib.parse
@@ -46,15 +46,11 @@ def check_post():
             print('Blacklisted:', link)
             warning_msg = 'This source is known for producing fake news'
             domain_is_dodgy = True
-        '''
-        if link is parsed - scrape the link
-        '''
-        pass
 
-        # if predictor(pd.Series(title)) == 1:
-        #     print('Clickbait:', title)
-        #     title_warning = 'Evidence supports this being a clickbait title'
-        #     title_is_dodgy = True
+    if predictor(pd.Series(title)) == 1:
+        print('Clickbait:', title)
+        title_warning = 'This headline may be fake news or clickbait'
+        title_is_dodgy = True
 
     return jsonify(
         domain_is_dodgy=domain_is_dodgy,
