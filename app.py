@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
-from blacklist_checker import is_blacklisted
+from blacklist_checker import Blacklister
 from clickbait_model import predictor
 import pandas as pd
 
 app = Flask(__name__)
+
+blacklister = Blacklister()
 
 
 @app.route('/')
@@ -27,7 +29,7 @@ def check_post():
     # print(predictor(title))
 
     if link:
-        if is_blacklisted(link):
+        if blacklister.is_blacklisted(link):
             print('Blacklisted:', link)
             warning_msg = 'This source is known for producing fake news'
             is_dodgy = True
