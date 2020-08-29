@@ -6,6 +6,7 @@ let posts = {};
 
 window.onload = function () {
     page_loaded = true;
+    console.log('Starting Symany...');
 }
 
 const verifyPost = async (title, link) => {
@@ -48,19 +49,17 @@ const searchForArticles = async () => {
         let postWindow = postLink[i].parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
         let headline = postLink[i].getAttribute('aria-label');
 
-
-
         if (!(headline in posts)) {
-            posts['headline'] = {
+            console.log(`Adding to list of known posts - ${headline}`);
+            posts[headline] = {
                 'link': postLink[i].getAttribute('href'),
                 'postWindowRef': postWindow
             }
+            console.log('Updated posts:')
+            console.log(posts);
         }
     }
-
-    console.log(posts);
 }
-console.log('Starting Symany...');
 
 window.setInterval(function () {
     searchForArticles();
