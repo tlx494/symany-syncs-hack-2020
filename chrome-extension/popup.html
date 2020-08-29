@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="stylesheet.css">
+  <link rel="stylesheet" href="button.css">
   <title>Fake News Detector</title>
   <script type="text/javascript" src="popup.js"></script>
 </head>
@@ -18,15 +19,14 @@
 
   <div class="controls">
     <div class="center custom-control custom-switch">
-      <input type="checkbox" class="custom-control-input" id="customSwitch1" name="checkbox">
-      <label class="custom-control-label" for="customSwitch1">STOP/START</label>
+      <div class="toggleWrapper">
+        <input type="checkbox" name="active-toggle" class="mobileToggle" id="toggle1" checked>
+        <label for="toggle1"></label>
+      </div>
+      <strong>STOP / START</strong>
     </div>
   </div>
 
-  <div class="toggleWrapper">
-    <input type="checkbox" name="toggle1" class="mobileToggle" id="toggle1" checked>
-    <label for="toggle1"></label>
-  </div>
 
 </body>
 

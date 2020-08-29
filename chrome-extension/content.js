@@ -11,13 +11,12 @@ window.onload = function () {
 
 const verifyPost = async (title, link) => {
 
-    let url = 'https://symanyapi.gq/check-post'
+    let url = 'https://symanyapi.gq/check-post';
     let options = {
         method: 'POST',
-        mode: 'no-cors',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json;charset=UTF-8'
+            'Accept': '*/*',
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             title: title,
@@ -25,28 +24,18 @@ const verifyPost = async (title, link) => {
         })
     };
 
-
-    fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://wikipedia.org')}`)
-        .then(response => {
-            if (response.ok) return response.json()
-            throw new Error('Network response was not ok.')
-        })
-        .then(data => console.log(data.contents));
-
-
     let response = await fetch(url, options);
-    let responseOK = response && response.ok;
-    if (responseOK) {
-        let data = await response.json();
 
-        console.log(data);
-        // do something with data
+    if (response.ok) {
+        let data = await response.json();
+        return data;
+    } else {
+        console.log('Got a bad response from the server:');
+        console.log(response);
+        return null;
     }
 
 }
-
-// verifyPost('This is a title', 'https://dodgywebsite.com');
-
 
 const searchForArticles = async () => {
     if (!page_loaded) {
@@ -66,9 +55,13 @@ const searchForArticles = async () => {
                 'postWindowRef': postWindow
             }
 
+            // console.log(headline, link);
             let verified = await verifyPost(headline, link);
+            if (verified == null) {
+                console.log('Could not verify post');
+            }
 
-            if (verified) { // invert this later
+            if (!(verified['domain_is_dodgy'] || verified['title_is_dodgy'])) { // invert this later
                 postWindow.classList.add('dodgy');
             }
 

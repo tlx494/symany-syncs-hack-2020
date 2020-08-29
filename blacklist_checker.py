@@ -6,7 +6,7 @@ class Blacklister:
         self.blacklist_file = open('blacklist.txt', 'r')
 
     def is_blacklisted(self, url):
-        domain = get_domain_from_url(url)
+        domain = self.get_domain_from_url(url)
 
         for line in self.blacklist_file:
             if line.rstrip() == domain:

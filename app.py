@@ -1,50 +1,63 @@
 from flask import Flask, request, jsonify
 from blacklist_checker import Blacklister
-from clickbait_model import predictor
+import json
+# from clickbait_model import predictor
 import pandas as pd
+from flask_cors import CORS, cross_origin
+import urllib.parse
+import re
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 blacklister = Blacklister()
 
 
 @app.route('/')
+@cross_origin()
 def hello():
     return 'API for chrome extension'
 
 
 @app.route('/check-post', methods=['POST'])
+@cross_origin()
 def check_post():
 
-    is_dodgy = False
+    domain_is_dodgy = False
     warning_msg = ''
 
-    title_warning = ''
     title_is_dodgy = False
+    title_warning = ''
 
-    title = request.json['title']
-    link = request.json['link']
+    data = json.loads(request.data.decode('utf-8'))
 
-    print('title:', title, 'link:', link)
-    # print(predictor(title))
+    title = data['title']
+    link = data['link']
+
+    link = urllib.parse.unquote(link)
+    link = re.sub('https:\/\/l\.facebook\.com\/l\.php\?u=', '', link)
+    link = re.sub('\?fbclid.*', '', link)
+
+    print('Checking Title:', title, '\nLink:', link)
 
     if link:
         if blacklister.is_blacklisted(link):
             print('Blacklisted:', link)
             warning_msg = 'This source is known for producing fake news'
-            is_dodgy = True
+            domain_is_dodgy = True
         '''
         if link is parsed - scrape the link
         '''
         pass
 
-    if predictor(pd.Series(title)) == 1:
-        print('Clickbait:', title)
-        title_warning = 'Evidence supports this being a clickbait title'
-        title_is_dodgy = True
+        # if predictor(pd.Series(title)) == 1:
+        #     print('Clickbait:', title)
+        #     title_warning = 'Evidence supports this being a clickbait title'
+        #     title_is_dodgy = True
 
     return jsonify(
-        is_dodgy=is_dodgy,
+        domain_is_dodgy=domain_is_dodgy,
         warning_msg=warning_msg,
         title_warning=title_warning,
         title_is_dodgy=title_is_dodgy
