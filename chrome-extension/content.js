@@ -14,9 +14,8 @@ const verifyPost = async (title, link) => {
     let url = 'https://symanyapi.gq/check-post';
     let options = {
         method: 'POST',
-        mode: 'no-cors',
         headers: {
-            'Accept': 'application/json',
+            'Accept': '*/*',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
@@ -26,12 +25,15 @@ const verifyPost = async (title, link) => {
     };
 
     let response = await fetch(url, options);
-    let responseOK = response && response.ok;
-    if (responseOK) {
-        let data = await response.json();
 
+    if (response.ok) {
+        let data = await response.json();
+        console.log('got a good response');
         console.log(data);
-        // do something here
+    } else {
+        console.log('got a bad response');
+        console.log(response);
+        console.log(response.json());
     }
 
 }
@@ -57,7 +59,7 @@ const searchForArticles = async () => {
                 'postWindowRef': postWindow
             }
 
-            console.log(headline, link);
+            // console.log(headline, link);
             let verified = await verifyPost(headline, link);
 
             if (verified) { // invert this later
