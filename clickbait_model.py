@@ -14,14 +14,11 @@ df = pd.read_csv("clickbait_data.csv", header=0)
 
 X = df['headline']
 y = df['clickbait']
-
+#test_eg = pd.Series('Huge news as universe ending threat approaches planet Earth!!!')
+#print(test_eg)
 train_X, test_X, train_y, test_y = train_test_split(X, y, test_size=0.7, random_state=0)
 
-train_X = train_X.apply(lambda x: x.split()) # break into words (tokenise)
-test_X = test_X.apply(lambda x: x.split())
-
-train_X = train_X.apply(lambda x: [word.lower() for word in x]) # make lower case
-test_X = test_X.apply(lambda x: [word.lower() for word in x])
+#print(type(test_X))
 
 def remove_punctuation(row):
     new_row = []
@@ -31,42 +28,22 @@ def remove_punctuation(row):
         new_row.append(r)
     return new_row
 
-train_X = train_X.apply(remove_punctuation)
-test_X = test_X.apply(remove_punctuation)
+def transform_data(raw):
+    raw = raw.apply(lambda x: x.split()) # Break into words (tokenise)
+    raw = raw.apply(lambda x: [word.lower() for word in x]) # Make lower case
+    raw = raw.apply(remove_punctuation) # Remove punctuation
+    raw = raw.apply(lambda x: [''.join([i for i in word if not i.isdigit()]) for word in x])  # Remove digits
+    raw = raw.apply(lambda x: [word for word in x if word not in stopwords.words('english')]) # Remove stopwords
+    raw = raw.apply(lambda x: [word.strip() for word in x if word != '']) # Strip whitespace and remove empty strings
+    
+    lem = nltk.stem.WordNetLemmatizer()
+    raw = raw.apply(lambda x: [lem.lemmatize(word) for word in x]) # lemmatise the words
 
-train_X = train_X.apply(lambda x: [''.join([i for i in word if not i.isdigit()]) for word in x]) # hahahahhahahahahahha
-test_x = test_X.apply(lambda x: [''.join([i for i in word if not i.isdigit()]) for word in x])   # removes digits from text somehow
+    transformed = raw.apply(lambda x: ''.join(i + ' ' for i in x))
+    return transformed
 
-train_X = train_X.apply(lambda x: [word for word in x if word not in stopwords.words('english')]) # Remove stopwords
-test_X = test_X.apply(lambda x: [word for word in x if word not in stopwords.words('english')])
-
-train_X = train_X.apply(lambda x: [word.strip() for word in x if word != '']) # strip whitespace
-test_X = test_X.apply(lambda x: [word.strip() for word in x if word != ''])
-
-# train_X = train_X.apply(lambda x: [word for word in x if word != ''])
-# test_X = test_X.apply(lambda x: [word for word in x if word != ''])
-lem = nltk.stem.WordNetLemmatizer()
-train_X = train_X.apply(lambda x: [lem.lemmatize(word) for word in x]) # lemmatise the words
-test_X = test_X.apply(lambda x: [lem.lemmatize(word) for word in x])
-
-print(train_X.head)
-# def make_lower(row):
-#     return [word.lower() for word in row]
-
-
-
-
-
-count_vect = CountVectorizer()
-
-X_train_counts = count_vect.fit_transform(X)
-
-tfidf_transformer = TfidfTransformer()
-
-X_train_tfidf = tfidf_transformer.fit_transform(X_train_counts)
-
-#X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=0)
-#clf = MultinomialNB().fit(X_train_tfidf, y)
+train_X = transform_data(train_X)
+test_X = transform_data(test_X)
 
 text_clf = Pipeline([
     ('vect', CountVectorizer()),
@@ -75,19 +52,21 @@ text_clf = Pipeline([
 ])
 
 text_clf.fit(X, y)
-test_eg = ['Coronavirus: NSW records 13 new cases of COVID-19', 'Try this out and see what happens!', 'The personality cult Donald Trump launched in 2016 has subsumed the Republican Party', 'The University of Paris-Saclay has a teaching and research staff of 9,000, catering to 48,000 students—more than Harvard or Stanford', 'Bulgarians have been Europe’s gardeners longer than you think']
-
-# X_new_counts = count_vect.transform(test_eg)
-# X_new_tfidf = tfidf_transformer.transform(X_new_counts)
-
-def predictor(content=test_eg):
+#test_eg = ['Coronavirus: NSW records 13 new cases of COVID-19', 'Try this out and see what happens!', 'The personality cult Donald Trump launched in 2016 has subsumed the Republican Party', 'The University of Paris-Saclay has a teaching and research staff of 9,000, catering to 48,000 students—more than Harvard or Stanford', 'Bulgarians have been Europe’s gardeners longer than you think', 'Huge news as universe ending threat approaches planet Earth!!!']
+#test_eg = transform_data(pd.Series(['Huge news as universe ending threat approaches planet Earth!!!', 'Coronavirus: NSW records 13 new cases of COVID-19', 'Try this out and see what happens!', 'The personality cult Donald Trump launched in 2016 has subsumed the Republican Party', 'The University of Paris-Saclay has a teaching and research staff of 9,000, catering to 48,000 students—more than Harvard or Stanford', 'Bulgarians have been Europe’s gardeners longer than you think']))
+def predictor(content=test_X):
 
     prediction = text_clf.predict(content)
     
     return prediction
 
-predictor()
-#scores = cross_val_score(text_clf, X, y, cv=10)
+# from sklearn.metrics import confusion_matrix
+# print(confusion_matrix(test_y, predictor(test_eg)))
+
+# from sklearn.metrics import classification_report
+# print("Classification Report")
+# print(classification_report(test_y,predictor(test_eg)))
+#scores = cross_val_score(text_clf, X, y, cv=10) 
 #print(scores)
 #print(text_clf.score(X_test, y_test))
 
