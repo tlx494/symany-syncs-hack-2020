@@ -22,8 +22,11 @@ def check_post():
     title_warning = ''
     title_is_dodgy = False
 
-    title = request.json['title']
-    link = request.json['link']
+    data = request.get_json()
+    print(data)
+
+    title = data['title']
+    link = data['link']
 
     print('title:', title, 'link:', link)
     # print(predictor(title))

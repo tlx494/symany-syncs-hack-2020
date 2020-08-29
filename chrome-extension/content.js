@@ -11,28 +11,19 @@ window.onload = function () {
 
 const verifyPost = async (title, link) => {
 
-    let url = 'https://symanyapi.gq/check-post'
+    let url = 'https://symanyapi.gq/check-post';
     let options = {
         method: 'POST',
         mode: 'no-cors',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json;charset=UTF-8'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             title: title,
             link: link
         })
     };
-
-
-    fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://wikipedia.org')}`)
-        .then(response => {
-            if (response.ok) return response.json()
-            throw new Error('Network response was not ok.')
-        })
-        .then(data => console.log(data.contents));
-
 
     let response = await fetch(url, options);
     let responseOK = response && response.ok;
