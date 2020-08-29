@@ -32,7 +32,7 @@ def check_post():
         if link is parsed - scrape the link
         '''
         pass
-    
+
     if predictor(title) == 1:
         print('Clickbait:', title)
         title_warning = 'Evidence supports this being a clickbait title'
@@ -46,4 +46,4 @@ def check_post():
 
 # run the application
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=80, debug=True)
