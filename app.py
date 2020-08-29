@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from blacklist_checker import is_blacklisted
 from clickbait_model import predictor
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -33,7 +34,7 @@ def check_post():
         '''
         pass
     
-    if predictor(title) == 1:
+    if predictor(pd.Series(title)) == 1:
         print('Clickbait:', title)
         title_warning = 'Evidence supports this being a clickbait title'
         title_is_dodgy = True
