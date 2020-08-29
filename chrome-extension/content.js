@@ -85,8 +85,10 @@ const searchForArticles = async () => {
                 button2.classList.add('btn', 'btn-primary', 'button2');
                 button2.innerHTML = 'See anyway';
 
-                verified['domain_is_dodgy'] = true; // delete this later
-                verified['warning_msg'] = 'This source is known for producing fake news' // delete this later
+                // verified['domain_is_dodgy'] = true; // delete this later
+                // verified['warning_msg'] = 'This source is known for producing fake news' // delete this later
+
+                console.log(verified);
 
                 let alertText = '';
                 if (verified['domain_is_dodgy'] && verified['title_is_dodgy']) {
