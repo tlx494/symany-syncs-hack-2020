@@ -1,31 +1,13 @@
-// var ss = document.getElementById("customSwitch1");
-
-// ($ss).click(function() {
-//   if(($ss).prop("checked")){
-//     chrome.runtime.sendMessage({isOn: "true"}, function(response) {
-//       console.log(response.farewell);
-//     });
-//   }
-//   else{
-//     chrome.runtime.sendMessage({isOn: "false"}, function(response) {
-//       console.log(response.state);
-//     });
-//   }
-// });
-console.log("hello");
-var checkbox = document.querySelector("input[name=active-toggle]");
-console.log(checkbox)
-
-checkbox.addEventListener('change', function () {
-  if (this.checked) {
-    console.log("hello");
-  } else {
-    console.log("hebyllo");
-  }
-});
-
 window.onload = function () {
-  $("#intro").click(function () {
-    alert("clicked"); // Should fire now
+  var checkbox = document.querySelector("input[name=checkbox]");
+
+  checkbox.addEventListener( 'change', function() {
+      if(this.checked) {
+        isExtensionOn = false;
+        console.log("off");
+      } else {
+        isExtensionOn = true;
+        console.log("on");
+      }
   });
 };
