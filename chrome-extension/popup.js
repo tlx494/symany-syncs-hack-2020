@@ -1,7 +1,14 @@
-window.addEventListener("DOMContentLoaded", function () {
-  var form = document.getElementById("news");
+var ss = document.getElementById("customSwitch1");
 
-document.getElementById("your-id").addEventListener("click", function () {
-  form.submit();
-});
+(ss).click(function() {
+  if((ss).prop("checked")){
+    chrome.runtime.sendMessage({isOn: "true"}, function(response) {
+      console.log(response.farewell);
+    });
+  }
+  else{
+    chrome.runtime.sendMessage({isOn: "false"}, function(response) {
+      console.log(response.state);
+    });
+  }
 });
