@@ -14,11 +14,8 @@ df = pd.read_csv("clickbait_data.csv", header=0)
 
 X = df['headline']
 y = df['clickbait']
-#test_eg = pd.Series('Huge news as universe ending threat approaches planet Earth!!!')
-#print(test_eg)
-train_X, test_X, train_y, test_y = train_test_split(X, y, test_size=0.7, random_state=0)
 
-#print(type(test_X))
+train_X, test_X, train_y, test_y = train_test_split(X, y, test_size=0.7, random_state=0)
 
 def remove_punctuation(row):
     new_row = []
