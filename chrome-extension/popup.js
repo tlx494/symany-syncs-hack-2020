@@ -14,6 +14,7 @@
 // });
 console.log("hello");
 var checkbox = document.querySelector("input[name=checkbox]");
+console.log(checkbox)
 
 checkbox.addEventListener('change', function () {
   if (this.checked) {
@@ -22,3 +23,9 @@ checkbox.addEventListener('change', function () {
     console.log("hebyllo");
   }
 });
+
+window.onload = function () {
+  $("#intro").click(function () {
+    alert("clicked"); // Should fire now
+  });
+};

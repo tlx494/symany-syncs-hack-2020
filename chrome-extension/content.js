@@ -11,7 +11,7 @@ window.onload = function () {
 
 const verifyPost = async (title, link) => {
 
-    let url = 'https://35.244.79.248/check-post'
+    let url = 'http://35.244.79.248/check-post'
     let options = {
         method: 'POST',
         mode: 'no-cors',
@@ -24,6 +24,15 @@ const verifyPost = async (title, link) => {
             link: link
         })
     };
+
+
+    fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://wikipedia.org')}`)
+        .then(response => {
+            if (response.ok) return response.json()
+            throw new Error('Network response was not ok.')
+        })
+        .then(data => console.log(data.contents));
+
 
     let response = await fetch(url, options);
     let responseOK = response && response.ok;
